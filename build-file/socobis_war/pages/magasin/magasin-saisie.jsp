@@ -79,9 +79,6 @@
 
   
 
-    
-
-   
 
     String butApresPost = "magasin/magasin-fiche.jsp";
     String nomTable = "magasin2";
