@@ -16,7 +16,7 @@ cd "D:\don't touch\wildfly-10.1.0.Final\bin"
 
 
 Arret postgres
-& "D:\don't touch\PostgreSQL\18\bin\pg_ctl.exe" -D "D:\don't touch\PostgreSQL\18\data" stop
+    & "D:\don't touch\PostgreSQL\18\bin\pg_ctl.exe" -D "D:\don't touch\PostgreSQL\18\data" stop
 
 redenarre postgres
 & "D:\don't touch\PostgreSQL\18\bin\pg_ctl.exe" -D "D:\don't touch\PostgreSQL\18\data" -l "D:\don't touch\PostgreSQL\18\data\demarrage.log" start
