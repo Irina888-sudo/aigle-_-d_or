@@ -1,16 +1,14 @@
-<%@page import="mouvement.MouvementEmployeComplet"%>
+<%@page import="paie.log.MouvementEmployeComplet"%>
 <%@page import="affichage.PageRecherche"%>
 <%@ page import="java.util.Map" %> 
 <%@ page import="java.util.HashMap" %>
 <%@ page import="affichage.Liste" %>
 <%@ page import="bean.TypeObjet" %>
 
-
 <% try{
+    MouvementEmployeComplet mvcomp = new MouvementEmployeComplet();
 
-        MouvementEmployeComplet mvcomp = new MouvementEmployeComplet();
-
-        // 2. On définit les colonnes à afficher
+    // 2. On définit les colonnes à afficher
     String[] listeCrt = {"id", "nom", "prenom", "type_mouvement", "date_mouvement"};
     String[] libEntete = {"ID", "Nom", "Prénom", "Type", "Date"};
 
@@ -19,10 +17,13 @@
     pr.setTitre("Historique des Mouvements des Employés");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
-    pr.setApres("paie/log/mouvementemploye-liste.jsp");
+    
+    // ATTENTION : Adapte ce chemin selon l'endroit où tu as mis le fichier
+    pr.setApres("paie/log/mouvementemploye-liste.jsp"); 
 
     pr.creerObjetPage(libEntete, null);
 
+    // ATTENTION : Adapte aussi ce chemin
     pr.getFormu().setAnotherButton("<a class=\"btn btn-primary pull-right\" href=\"module.jsp?but=paie/log/mouvementemploye-saisie.jsp\">+ Nouveau Mouvement</a>");
 %>
 <div class="content-wrapper">
@@ -42,6 +43,6 @@
 <%
 } catch(Exception e) {
     e.printStackTrace();
+    out.println("<div style='color:red;'>ERREUR : " + e.getMessage() + "</div>");
 }
 %>
-
