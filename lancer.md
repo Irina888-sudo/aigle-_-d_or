@@ -7,8 +7,8 @@ ant dans aigle dor
 
 
 wildFly
-cd /d "D:\don't touch\wildfly-10.1.0.Final\bin"
-standalone.bat
+cd "D:\don't touch\wildfly-10.1.0.Final\bin"
+.\standalone.bat
 
 
 
@@ -26,3 +26,5 @@ Stop-Process -Id (Get-NetTCPConnection -LocalPort 8080 -State Listen | Select-Ob
 
 
 localhost:8080/socobis/pages/module.jsp?but=mouvement/mouvementemploye-liste.jsp
+
+ & "D:\don't touch\PostgreSQL\18\bin\psql.exe" -h localhost -p 5432 -U postgres -d aigledor
