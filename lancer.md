@@ -22,3 +22,7 @@ redenarre postgres
 arreter wildfly
 jboss-cli.bat --connect command=:shutdown
 Stop-Process -Id (Get-NetTCPConnection -LocalPort 8080 -State Listen | Select-Object -First 1).OwningProcess
+
+
+
+localhost:8080/socobis/pages/module.jsp?but=mouvement/mouvementemploye-liste.jsp

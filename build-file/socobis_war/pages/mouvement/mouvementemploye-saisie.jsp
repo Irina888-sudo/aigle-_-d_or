@@ -1,4 +1,4 @@
-<%@page import="mouvement.MouvementEmploye"%>
+<%@page import="paie.log.MouvementEmploye"%>
 <%@page import="paie.log.LogPersonnel"%>
 <%@ page import="user.*" %>
 <%@ page import="bean.*" %>
@@ -7,6 +7,7 @@
 <%
 try {
     MouvementEmploye mvt = new MouvementEmploye();
+    mvt.setNomTable("MOUVEMENT_EMPLOYE");
 
     // 2. Le framework prépare le formulaire
     PageInsert pi = new PageInsert(mvt, request, (user.UserEJB) session.getValue("u"));
@@ -17,8 +18,8 @@ try {
 
 
     LogPersonnel log = new LogPersonnel();
-    p.setNomTable("LOG_PERSONNEL"); 
-    liste[0] = new Liste("id_personnel", p, "nom", "id"); 
+    log.setNomTable("LOG_PERSONNEL"); 
+    liste[0] = new Liste("id_personnel", log, "nom", "id"); 
 
      // Liste des types de mouvement (Hardcodé)
     liste[1] = new Liste("type_mouvement");
@@ -57,3 +58,11 @@ try {
         <input name="nomtable" type="hidden" value="<%= nomTable %>">
     </form>
 </div>
+
+<%
+} catch (Exception e) {
+    e.printStackTrace();
+%>
+<script language="JavaScript"> alert('<%=e.getMessage()%>');
+    history.back();</script>
+<% } %>

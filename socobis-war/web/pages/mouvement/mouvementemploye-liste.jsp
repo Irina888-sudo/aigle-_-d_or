@@ -24,7 +24,8 @@
     pr.creerObjetPage(libEntete, null);
 
     // ATTENTION : Adapte aussi ce chemin
-    pr.getFormu().setAnotherButton("<a class=\"btn btn-primary pull-right\" href=\"module.jsp?but=paie/log/mouvementemploye-saisie.jsp\">+ Nouveau Mouvement</a>");
+    pr.getFormu().setAnotherButton("<a class=\"btn btn-primary pull-right\" href=\"module.jsp?but=mouvement%2Fmouvementemploye-saisie.jsp\">+ Nouveau Mouvement</a>");
+
 %>
 <div class="content-wrapper">
     <section class="content-header">
