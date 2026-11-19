@@ -36,7 +36,7 @@ try {
     pi.getFormu().getChamp("id_poste_mouvement").setLibelle("ID Poste (Optionnel)");
 
     // 6. Configuration de l'envoi
-    String butApresPost = "paie/log/mouvementemploye-liste.jsp"; // Où aller après
+    String butApresPost = "mouvement/mouvementemploye-liste.jsp"; // Où aller après
     String classe = "paie.log.MouvementEmploye"; // Quelle classe appeler
     String nomTable = "MOUVEMENT_EMPLOYE"; // Quelle table
 
@@ -47,7 +47,7 @@ try {
 
 <div class="content-wrapper">
     <h1 align="center">Saisie d'un Mouvement</h1>
-    <form action="<%=pi.getLien()%>?but=apresTarif.jsp" method="post" data-parsley-validate>
+    <form action="<%=pi.getLien()%>?but=mouvement%2Fmouvementemploye-saisie.jsp" method="post" data-parsley-validate>
         <%
             out.println(pi.getFormu().getHtmlInsert());
         %>
@@ -66,3 +66,5 @@ try {
 <script language="JavaScript"> alert('<%=e.getMessage()%>');
     history.back();</script>
 <% } %>
+
+

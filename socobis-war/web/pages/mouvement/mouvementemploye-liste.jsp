@@ -9,8 +9,8 @@
     MouvementEmployeComplet mvcomp = new MouvementEmployeComplet();
 
     // 2. On définit les colonnes à afficher
-    String[] listeCrt = {"id", "nom", "prenom", "type_mouvement", "date_mouvement"};
-    String[] libEntete = {"ID", "Nom", "Prénom", "Type", "Date"};
+    String[] listeCrt = {};
+    String[] libEntete = {"id", "nom", "prenom", "type_mouvement", "date_mouvement"};
 
     PageRecherche pr = new PageRecherche(mvcomp, request, listeCrt, new String[]{}, 3, libEntete, libEntete.length);
 
@@ -22,6 +22,8 @@
     pr.setApres("paie/log/mouvementemploye-liste.jsp"); 
 
     pr.creerObjetPage(libEntete, null);
+    String[] libEnteteAffiche = {"ID", "Nom", "Pr&eacute;nom", "Type", "Date"};
+    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 
     // ATTENTION : Adapte aussi ce chemin
     pr.getFormu().setAnotherButton("<a class=\"btn btn-primary pull-right\" href=\"module.jsp?but=mouvement%2Fmouvementemploye-saisie.jsp\">+ Nouveau Mouvement</a>");

@@ -55,8 +55,12 @@
 
 
 <%
-  } catch (Exception e) {
+} catch (Exception e) {
     e.printStackTrace();
-  } %>
+%>
+<script language="JavaScript"> alert('<%=e.getMessage()%>');
+    history.back();</script>
+<% } %>
+
 
 
