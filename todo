@@ -1,5 +1,12 @@
-I- Lancer le projet 
-    -Postgres
-    -Java
+I- Lancer le projet [Ok]
+    -Postgres[Ok]
+    -Java[Ok]
 
 II-
+
+
+
+Ne pas toucher à personnel-liste.jsp (la maintenance continue de marcher).
+Nouvelle page paie/employe/employe-liste.jsp, avec la même mise en page : liste à gauche, fiche à droite.
+Source de données : une vue v_employe_complet (log_personnel + paie_info_personnel + libellé paie_fonction).
+Historique : mouvement_employe comme seul journal.

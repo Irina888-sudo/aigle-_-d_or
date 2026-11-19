@@ -1,0 +1,151 @@
+=====================================================
+ SCHEMA : JOIN ET VUE (explication simple)
+=====================================================
+
+1) LE CONCEPT EN 5 LIGNES
+-------------------------
+- Une TABLE = un classeur qui contient des lignes.
+- Un code (ex: DIR00001) dans une table pointe vers une ligne d'une
+  AUTRE table, qui contient le vrai nom.
+- Un JOIN = aller chercher dans l'autre table la ligne qui a le meme code.
+- Une VUE = un JOIN enregistre sous un nom. Elle ne stocke rien :
+  elle relance la requete a chaque lecture.
+- Analogie : le JOIN est le trajet vers l'annuaire, la VUE est le
+  raccourci qui memorise ce trajet.
+
+
+2) EXEMPLE SUR UN AUTRE CAS (boutique de chaussures)
+----------------------------------------------------
+
+  TABLE vente                    TABLE produit
+  +----------+------------+      +------------+------------+
+  | id       | idproduit  |      | id         | designation|
+  +----------+------------+      +------------+------------+
+  | V1       | P10        | ---> | P10        | KENDI      |
+  | V2       | P20        | ---> | P20        | DERAINA    |
+  +----------+------------+      +------------+------------+
+
+  Sans JOIN : on voit  V1 -> P10   (illisible)
+  Avec JOIN : on voit  V1 -> KENDI (lisible)
+
+  LEFT JOIN produit p ON p.id = v.idproduit;
+                         ^^^^   ^^^^^^^^^^^
+                         cle    code recopie dans vente
+
+
+3) TES TABLES, MEME FORMAT (1 lien = 1 schema)
+----------------------------------------------
+Les valeurs viennent de tes resultats SQL. "?" = valeur que tu n'as
+pas encore affichee (a toi de la lire avec un SELECT).
+
+LIEN A : log_personnel  <-->  paie_info_personnel   (JOIN, meme id)
+
+  TABLE log_personnel (l)               TABLE paie_info_personnel (p)
+  +---------------+---------+           +---------------+-----------+
+  | id            | nom     |           | id            | matricule |
+  +---------------+---------+           +---------------+-----------+
+  | PRS_TEMP_0001 | HARISOA | <-------> | PRS_TEMP_0001 | 37A       |
+  | PRS_TEMP_0002 | RASOAMA | <-------> | PRS_TEMP_0002 | 63A       |
+  +---------------+---------+           +---------------+-----------+
+  Les deux tables ont le MEME id : identite + contrat de la meme personne.
+
+  JOIN paie_info_personnel p ON p.id = l.id
+
+
+LIEN B : paie_info_personnel  --->  paie_fonction   (LEFT JOIN)
+
+  TABLE paie_info_personnel (p)         TABLE paie_fonction (f)
+  +---------------+------------+        +-----------+-----------+
+  | id            | idfonction |        | id        | val       |
+  +---------------+------------+        +-----------+-----------+
+  | PRS_TEMP_0001 | PFNCT????  | -----> | PFNCT0001 | CA        |
+  | PRS_TEMP_0002 | PFNCT????  | -----> | PFNCT0002 | MAG       |
+  +---------------+------------+        +-----------+-----------+
+  Dans ta vue, la fonction de PRS_TEMP_0001 s'affiche : MANOEUVRE.
+
+  LEFT JOIN paie_fonction f ON f.id = p.idfonction
+
+
+LIEN C : log_personnel  --->  direction   (LEFT JOIN)
+
+  TABLE log_personnel (l)               TABLE direction (d)
+  +---------------+-----------+         +----------+------------+
+  | id            | direction |         | iddir    | libelledir |
+  +---------------+-----------+         +----------+------------+
+  | PRS_TEMP_0001 | DIR00001  | ------> | DIR00001 | ?          |
+  +---------------+-----------+         +----------+------------+
+  ATTENTION : la cle de direction s'appelle iddir (pas id).
+
+  LEFT JOIN direction d ON d.iddir = l.direction
+
+
+LIEN D : log_personnel  --->  service   (LEFT JOIN)
+
+  TABLE log_personnel (l)               TABLE service (s)
+  +---------------+---------+           +---------+---------+
+  | id            | service |           | id      | libelle |
+  +---------------+---------+           +---------+---------+
+  | PRS_TEMP_0001 | SERV1   | --------> | SERV1   | ?       |
+  +---------------+---------+           +---------+---------+
+
+  LEFT JOIN service s ON s.id = l.service
+
+
+LIEN E : paie_info_personnel  --->  type_contrat   (LEFT JOIN)
+
+  TABLE paie_info_personnel (p)         TABLE type_contrat (t)
+  +---------------+-------------+       +------------+-------+
+  | id            | typecontrat |       | id         | val   |
+  +---------------+-------------+       +------------+-------+
+  | PRS_TEMP_0001 | TYP0000001  | ----> | TYP0000001 | ?     |
+  +---------------+-------------+       +------------+-------+
+  ATTENTION : la colonne s'ecrit typecontrat (un seul mot).
+
+  LEFT JOIN type_contrat t ON t.id = p.typecontrat
+
+
+4) VUE D'ENSEMBLE : QUI POINTE VERS QUI
+---------------------------------------
+
+                     log_personnel (l)  <-- table de DEPART
+                       |        |        |
+            A (id=id)  |        |        |
+     +-----------------+        |        +----------+
+     v                          v (C)                v (D)
+ paie_info_personnel (p)     direction (d)       service (s)
+     |            |
+     v (B)        v (E)
+ paie_fonction (f)   type_contrat (t)
+
+
+5) AVANT / APRES
+-----------------
+
+  Sans JOIN (codes)                 Avec JOIN (libelles)
+  -------------------------         -------------------------
+  fonction : PFNCT????              fonction : MANOEUVRE
+  direction: DIR00001               direction: libelledir
+  service  : SERV1                  service  : libelle
+  contrat  : TYP0000001             contrat  : val
+
+
+6) LA VUE = TOUS LES LIENS A LA FOIS
+------------------------------------
+  CREATE VIEW v_employe_liste AS
+  SELECT ... FROM log_personnel l
+  JOIN       paie_info_personnel p ON p.id    = l.id          -- A
+  LEFT JOIN  paie_fonction f       ON f.id    = p.idfonction  -- B
+  LEFT JOIN  direction d           ON d.iddir = l.direction   -- C
+  LEFT JOIN  service s             ON s.id    = l.service     -- D
+  LEFT JOIN  type_contrat t        ON t.id    = p.typecontrat -- E
+
+  Page JSP --lit--> v_employe_liste --calcule--> 5 tables
+
+
+7) A RETENIR
+------------
+  - Cle (id, iddir) = la colonne qui identifie une ligne.
+  - Code = la valeur de cette cle recopiee dans une autre table.
+  - JOIN = relier code et cle avec ON.
+  - VUE = JOIN sauvegarde sous un nom.
+=====================================================

@@ -19,8 +19,7 @@ Arret postgres
     & "D:\don't touch\PostgreSQL\18\bin\pg_ctl.exe" -D "D:\don't touch\PostgreSQL\18\data" stop
 
 redenarre postgres
-& "D:\don't touch\PostgreSQL\18\bin\pg_ctl.exe" -D "D:\don't touch\PostgreSQL\18\data" -l "D:\don't touch\PostgreSQL\18\data\demarrage.log" start
-
+ & "D:\don't touch\PostgreSQL\18\bin\pg_ctl.exe" -D "D:\don't touch\PostgreSQL\18\data" start
 
 arreter wildfly
 jboss-cli.bat --connect command=:shutdown
