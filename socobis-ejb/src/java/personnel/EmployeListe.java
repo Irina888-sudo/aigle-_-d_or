@@ -8,8 +8,7 @@ public class EmployeListe extends ClassMAPTable {
 
     // Bloc 1 : un attribut par colonne de la vue (même nom exact)
     String id, matricule, nom, prenom, fonction,
-           direction_lib, service_lib,
-           contrat_lib;
+           direction_lib, service_lib, contrat_lib;
 
     Date dateembauche, date_depart;
 
@@ -30,22 +29,20 @@ public class EmployeListe extends ClassMAPTable {
     public void construirePK(Connection c) throws Exception {
     }
 
-    // Bloc 5 : mots-clés de recherche (listes identiques, colonnes texte seulement)
+    // Bloc 5 : mots-clés de recherche (texte seulement, listes identiques)
     @Override
     public String[] getMotCles() {
         return new String[]{"id","nom","prenom","matricule","fonction",
                             "direction_lib","service_lib","contrat_lib"};
-
     }
 
     @Override
     public String[] getValMotCles() {
         return new String[]{"id","nom","prenom","matricule","fonction",
                             "direction_lib","service_lib","contrat_lib"};
-                            Date[] dateMotCles = {dateembauche, date_depart};
     }
 
-    // Bloc 6 : getters et setters (get + nom de la colonne)
+    // Bloc 6 : getters et setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

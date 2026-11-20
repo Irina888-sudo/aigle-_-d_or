@@ -5,31 +5,34 @@
     EmployeListe t = new EmployeListe();
     t.setNomTable("v_employe_liste");
 
-
+    // Bloc 1 : noms EXACTS des colonnes de la vue
     String listeCrt[] = {"id","nom","prenom","matricule","fonction",
-                        "direction_lib","service_lib","contrat_lib"};
-    
-    String listeInt[] = { };
-    // TODO : libEntete = colonnes affichées (noms exacts de la vue)
-    String libEntete[] = {"ID","Nom","Prénom","Matricule","Fonction",
-                          "Direction","Service","Contrat"};
+                         "direction_lib","service_lib","contrat_lib"};
 
+    String listeInt[] = {"dateembauche"};
+
+    String libEntete[] = {"id","nom","prenom","matricule","fonction",
+                          "direction_lib","service_lib","dateembauche","contrat_lib"};
+
+    // Bloc 2 : titres lisibles, déclarés AVANT leur utilisation, même taille que libEntete
+    String libEnteteAffiche[] = {"ID","Nom","Pr&eacute;nom","Matricule","Fonction",
+                                 "Direction","Service","Date d'embauche","Contrat"};
+
+    // Bloc 3 : création de la page
     PageRecherche pr = new PageRecherche(t, request, listeCrt, listeInt, 3, libEntete, libEntete.length);
-    pr.setTitre("Liste des employés");
+    pr.setTitre("Liste des employ&eacute;s");
     pr.setUtilisateur((user.UserEJB) session.getValue("u"));
     pr.setLien((String) session.getValue("lien"));
     pr.setApres("paie/employe/employe-liste.jsp");
     String[] colSomme = null;
     pr.creerObjetPage(libEntete, colSomme);
 
+    // Bloc 4 : lien cliquable sur l'id + titres affichés
     String lienTableau[] = {pr.getLien() + "?but=paie/employe/employe-fiche.jsp"};
     String colonneLien[] = {"id"};
-
     pr.getTableau().setLien(lienTableau);
     pr.getTableau().setColonneLien(colonneLien);
-
-    String libEnteteAffiche[] = {"ID","Nom","Prénom","Matricule","Fonction",
-                          "Direction","Service","Contrat"};
+    pr.getTableau().setLibelleAffiche(libEnteteAffiche);
 %>
 
 <div class="content-wrapper">
@@ -53,7 +56,6 @@
 </div>
 <%
     }catch(Exception e){
-
         e.printStackTrace();
     }
 %>
