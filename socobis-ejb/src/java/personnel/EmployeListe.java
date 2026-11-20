@@ -35,12 +35,14 @@ public class EmployeListe extends ClassMAPTable {
     public String[] getMotCles() {
         return new String[]{"id","nom","prenom","matricule","fonction",
                             "direction_lib","service_lib","contrat_lib"};
+
     }
 
     @Override
     public String[] getValMotCles() {
         return new String[]{"id","nom","prenom","matricule","fonction",
                             "direction_lib","service_lib","contrat_lib"};
+                            Date[] dateMotCles = {dateembauche, date_depart};
     }
 
     // Bloc 6 : getters et setters (get + nom de la colonne)
@@ -65,12 +67,12 @@ public class EmployeListe extends ClassMAPTable {
     public String getService_lib() { return service_lib; }
     public void setService_lib(String service_lib) { this.service_lib = service_lib; }
 
-    public String getDateembauche() { return dateembauche; }
-    public void setDateembauche(String dateembauche) { this.dateembauche = dateembauche; }
+    public Date getDateembauche() { return dateembauche; }
+    public void setDateembauche(Date dateembauche) { this.dateembauche = dateembauche; }
 
     public String getContrat_lib() { return contrat_lib; }
     public void setContrat_lib(String contrat_lib) { this.contrat_lib = contrat_lib; }
 
-    public String getDate_depart() { return date_depart; }
-    public void setDate_depart(String date_depart) { this.date_depart = date_depart; }
+    public Date getDate_depart() { return date_depart; }
+    public void setDate_depart(Date date_depart) { this.date_depart = date_depart; }
 }
